@@ -13,6 +13,7 @@ model Task {
   title    String
   priority String
   status   String
+  userId   String
 }
 
 model User {

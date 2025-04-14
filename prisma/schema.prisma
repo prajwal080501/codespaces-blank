@@ -3,22 +3,21 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 generator client {
   provider = "prisma-client-js"
   output = "../generated/prisma"
 }
 
 model Task {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  title String
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  title    String
   priority String
-  status String
+  status   String
+  userId String
 }
 
-
 model User {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
   username String
-  email String
+  email    String
 }

@@ -1,17 +1,17 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
-  /* config options here */
-  async headers() {
-    return [
-      {
-        source: "/(.*)",
-        headers: [
-          { key: "x-forwarded-host", value: process.env.NEXT_PUBLIC_URL || "localhost:3000" },
-        ],
-      },
-    ];
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  // Your existing config settings
+  
+  // Add this section
+  experimental: {
+    serverActions: {
+      allowedOrigins: [
+        'localhost:3000',
+        'upgraded-space-fishstick-95v5qp59ggrc99q4-3000.app.github.dev',
+        // Add any other domains you need to support
+      ],
+    },
   },
 };
 
-export default nextConfig;
+module.exports = nextConfig;

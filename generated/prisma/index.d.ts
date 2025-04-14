@@ -929,6 +929,7 @@ export namespace Prisma {
     title: string | null
     priority: string | null
     status: string | null
+    userId: string | null
   }
 
   export type TaskMaxAggregateOutputType = {
@@ -936,6 +937,7 @@ export namespace Prisma {
     title: string | null
     priority: string | null
     status: string | null
+    userId: string | null
   }
 
   export type TaskCountAggregateOutputType = {
@@ -943,6 +945,7 @@ export namespace Prisma {
     title: number
     priority: number
     status: number
+    userId: number
     _all: number
   }
 
@@ -952,6 +955,7 @@ export namespace Prisma {
     title?: true
     priority?: true
     status?: true
+    userId?: true
   }
 
   export type TaskMaxAggregateInputType = {
@@ -959,6 +963,7 @@ export namespace Prisma {
     title?: true
     priority?: true
     status?: true
+    userId?: true
   }
 
   export type TaskCountAggregateInputType = {
@@ -966,6 +971,7 @@ export namespace Prisma {
     title?: true
     priority?: true
     status?: true
+    userId?: true
     _all?: true
   }
 
@@ -1046,6 +1052,7 @@ export namespace Prisma {
     title: string
     priority: string
     status: string
+    userId: string
     _count: TaskCountAggregateOutputType | null
     _min: TaskMinAggregateOutputType | null
     _max: TaskMaxAggregateOutputType | null
@@ -1070,6 +1077,7 @@ export namespace Prisma {
     title?: boolean
     priority?: boolean
     status?: boolean
+    userId?: boolean
   }, ExtArgs["result"]["task"]>
 
 
@@ -1079,9 +1087,10 @@ export namespace Prisma {
     title?: boolean
     priority?: boolean
     status?: boolean
+    userId?: boolean
   }
 
-  export type TaskOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "priority" | "status", ExtArgs["result"]["task"]>
+  export type TaskOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "priority" | "status" | "userId", ExtArgs["result"]["task"]>
 
   export type $TaskPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Task"
@@ -1091,6 +1100,7 @@ export namespace Prisma {
       title: string
       priority: string
       status: string
+      userId: string
     }, ExtArgs["result"]["task"]>
     composites: {}
   }
@@ -1487,6 +1497,7 @@ export namespace Prisma {
     readonly title: FieldRef<"Task", 'String'>
     readonly priority: FieldRef<"Task", 'String'>
     readonly status: FieldRef<"Task", 'String'>
+    readonly userId: FieldRef<"Task", 'String'>
   }
     
 
@@ -2753,7 +2764,8 @@ export namespace Prisma {
     id: 'id',
     title: 'title',
     priority: 'priority',
-    status: 'status'
+    status: 'status',
+    userId: 'userId'
   };
 
   export type TaskScalarFieldEnum = (typeof TaskScalarFieldEnum)[keyof typeof TaskScalarFieldEnum]
@@ -2828,6 +2840,7 @@ export namespace Prisma {
     title?: StringFilter<"Task"> | string
     priority?: StringFilter<"Task"> | string
     status?: StringFilter<"Task"> | string
+    userId?: StringFilter<"Task"> | string
   }
 
   export type TaskOrderByWithRelationInput = {
@@ -2835,6 +2848,7 @@ export namespace Prisma {
     title?: SortOrder
     priority?: SortOrder
     status?: SortOrder
+    userId?: SortOrder
   }
 
   export type TaskWhereUniqueInput = Prisma.AtLeast<{
@@ -2845,6 +2859,7 @@ export namespace Prisma {
     title?: StringFilter<"Task"> | string
     priority?: StringFilter<"Task"> | string
     status?: StringFilter<"Task"> | string
+    userId?: StringFilter<"Task"> | string
   }, "id">
 
   export type TaskOrderByWithAggregationInput = {
@@ -2852,6 +2867,7 @@ export namespace Prisma {
     title?: SortOrder
     priority?: SortOrder
     status?: SortOrder
+    userId?: SortOrder
     _count?: TaskCountOrderByAggregateInput
     _max?: TaskMaxOrderByAggregateInput
     _min?: TaskMinOrderByAggregateInput
@@ -2865,6 +2881,7 @@ export namespace Prisma {
     title?: StringWithAggregatesFilter<"Task"> | string
     priority?: StringWithAggregatesFilter<"Task"> | string
     status?: StringWithAggregatesFilter<"Task"> | string
+    userId?: StringWithAggregatesFilter<"Task"> | string
   }
 
   export type UserWhereInput = {
@@ -2914,6 +2931,7 @@ export namespace Prisma {
     title: string
     priority: string
     status: string
+    userId: string
   }
 
   export type TaskUncheckedCreateInput = {
@@ -2921,18 +2939,21 @@ export namespace Prisma {
     title: string
     priority: string
     status: string
+    userId: string
   }
 
   export type TaskUpdateInput = {
     title?: StringFieldUpdateOperationsInput | string
     priority?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
   }
 
   export type TaskUncheckedUpdateInput = {
     title?: StringFieldUpdateOperationsInput | string
     priority?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
   }
 
   export type TaskCreateManyInput = {
@@ -2940,18 +2961,21 @@ export namespace Prisma {
     title: string
     priority: string
     status: string
+    userId: string
   }
 
   export type TaskUpdateManyMutationInput = {
     title?: StringFieldUpdateOperationsInput | string
     priority?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
   }
 
   export type TaskUncheckedUpdateManyInput = {
     title?: StringFieldUpdateOperationsInput | string
     priority?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
   }
 
   export type UserCreateInput = {
@@ -3012,6 +3036,7 @@ export namespace Prisma {
     title?: SortOrder
     priority?: SortOrder
     status?: SortOrder
+    userId?: SortOrder
   }
 
   export type TaskMaxOrderByAggregateInput = {
@@ -3019,6 +3044,7 @@ export namespace Prisma {
     title?: SortOrder
     priority?: SortOrder
     status?: SortOrder
+    userId?: SortOrder
   }
 
   export type TaskMinOrderByAggregateInput = {
@@ -3026,6 +3052,7 @@ export namespace Prisma {
     title?: SortOrder
     priority?: SortOrder
     status?: SortOrder
+    userId?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
