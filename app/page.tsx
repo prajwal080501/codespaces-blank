@@ -1,6 +1,4 @@
-import Features from "@/components/features";
 import Hero from "@/components/hero";
-import SectionWrapper from "@/components/section-wrapper";
 
 export default function Home() {
 

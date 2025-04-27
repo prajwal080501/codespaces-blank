@@ -2,7 +2,7 @@
 import ListContainer from "@/components/list-container"
 import { TasksData } from "@/types"
 
-export default function ListView({userId}: {
+export default function ListView({ userId }: {
     tasks: TasksData,
     userId: string
 }) {
