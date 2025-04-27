@@ -2,15 +2,22 @@
 'use client'
 import { deleteTask, getAllTasksByUserId } from "@/actions/task";
 import TaskTable from "./task-table";
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { useState } from "react";
+import { useCallback, useState } from "react";
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 
 export default function ListContainer({ userId }: { userId: string }) {
     const [filter, setFilter] = useState({})
+    const queryClient = useQueryClient();
+    const refetchTasks = useCallback(() => {
+        queryClient.invalidateQueries({ queryKey: ['tasks'] });
+    }, [queryClient]);
 
     const { data: tasks, isLoading } = useQuery({
         queryKey: ['tasks'],
         queryFn: () => getAllTasksByUserId(userId),
+        refetchOnWindowFocus: true,
+        refetchOnReconnect: false,
+        staleTime: 0,
     })
     // Function to apply filters
     const getFilteredTasks = () => {
@@ -41,8 +48,8 @@ export default function ListContainer({ userId }: { userId: string }) {
     const filteredTasks = getFilteredTasks();
 
     return (
-        <div className="flex flex-col gap-4">
-            <TaskTable tasks={filteredTasks} setFilter={setFilter} />
+        <div className="flex dark:bg-black/80 flex-col gap-4 h-1/2 overflow-y-auto">
+            <TaskTable tasks={filteredTasks} setFilter={setFilter} refetchTasks={refetchTasks}/>
         </div>
     )
 }

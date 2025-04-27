@@ -8,17 +8,25 @@ import {
 } from "@/components/ui/card"
 import { Button } from "./ui/button"
 
-export default function FeatureCard() {
+export default function FeatureCard({feature}:{
+    feature: {
+        id: number;
+        title: string;
+        subtitle: string;
+    }
+}) {
     return (
         <Card className="py-2">
             <CardHeader className="text-2xl font-bold">Powerful</CardHeader>
             <CardDescription className="p-2">
                 <div>
-                    Powerful task management system
+                    {feature.title}
                 </div>
             </CardDescription>
             <CardContent>
-                <p>Card Content</p>
+                <div className="text-sm text-muted-foreground">
+                    {feature.subtitle}
+                </div>
             </CardContent>
             <CardFooter>
                 <Button variant={'default'} className="w-fit">

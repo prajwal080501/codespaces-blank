@@ -99,3 +99,12 @@ export const SidebarMenu =  [
       ],
     },
   ];
+
+
+  export const FeaturesArray = [
+    {
+      id: 1,
+      title: '✅ Conquer Your Day with Ease',
+      subtitle: 'Stay organized, prioritize effortlessly, and achieve more with our intuitive task manager built for busy lives.',
+    }
+  ]

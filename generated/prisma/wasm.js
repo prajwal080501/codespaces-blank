@@ -115,7 +115,8 @@ exports.Prisma.TaskScalarFieldEnum = {
   title: 'title',
   priority: 'priority',
   status: 'status',
-  userId: 'userId'
+  userId: 'userId',
+  dueDate: 'dueDate'
 };
 
 exports.Prisma.UserScalarFieldEnum = {

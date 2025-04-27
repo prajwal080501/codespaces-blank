@@ -9,11 +9,12 @@ generator client {
 }
 
 model Task {
-  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
   title    String
   priority String
   status   String
   userId   String
+  dueDate  DateTime
 }
 
 model User {

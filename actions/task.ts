@@ -2,20 +2,21 @@
 
 import prisma from "@/primsa"
 
-export const addTask = async (input:any) => {
-    console.log(input, 'input');debugger;
+export const addTask = async (input: any) => {
+    console.log(input, 'input'); debugger;
+    input.dueDate = new Date(input.dueDate);
     let res = await prisma.task.create({
-        data:input,
+        data: input,
     })
     console.log(res, 'res action')
     return res;
 }
 
-export const getAllTasksByUserId = async (userId:string) => {
-    console.log(userId, 'userId');debugger;
+export const getAllTasksByUserId = async (userId: string) => {
+    console.log(userId, 'userId'); debugger;
     let res = await prisma.task.findMany({
-        where:{
-            userId:userId,
+        where: {
+            userId: userId,
         }
     })
     console.log(res, 'res action')
@@ -23,18 +24,18 @@ export const getAllTasksByUserId = async (userId:string) => {
 }
 
 
-export const deleteTask = async (taskId:string) => {
+export const deleteTask = async (taskId: string) => {
     const res = await prisma.task.delete({
         where: {
-            id:taskId
+            id: taskId
         }
     })
 
     return res;
 }
 
-const getTaskByyId = async (taskId:string) => {
-    const task = await prisma.create({
+const getTaskByyId = async (taskId: string) => {
+    const task = await prisma.task.findFirst({
         where: {
             id: taskId,
         }
@@ -42,3 +43,17 @@ const getTaskByyId = async (taskId:string) => {
 
     return task;
 }
+
+export const updateTask = async (taskId: string, data: any) => {
+    // Create a new object without the id property
+    const { id, ...updateData } = data;
+    updateData.dueDate = new Date(updateData.dueDate); // Ensure dueDate is a Date object
+    const task = await prisma.task.update({
+      where: {
+        id: taskId,
+      },
+      data: updateData, // Use the data without the id field
+    });
+  
+    return task;
+  }

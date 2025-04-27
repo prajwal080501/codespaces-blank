@@ -131,3 +131,9 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* html, body, :root { */
+  ::-webkit-scrollbar {
+    display: none;
+  }
+/* } */

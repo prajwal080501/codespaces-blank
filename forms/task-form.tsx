@@ -1,5 +1,5 @@
 "use client";
-import { addTask } from "@/actions/task";
+import { addTask, updateTask } from "@/actions/task";
 import { Input } from "@/components/ui/input";
 import { useEffect, useRef, useState } from "react";
 import {
@@ -22,83 +22,130 @@ import { Label } from "@/components/ui/label";
 import { useAuth } from "@clerk/nextjs";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { toast } from "sonner"
-import { Pencil } from "lucide-react";
+import { Pencil, Plus, Router } from "lucide-react";
+import { useRouter } from "next/navigation"
+import { DatePicker } from "@/components/date-picker";
 
-export default function TaskForm({ editMode = false, data }: { editMode?: boolean, data?: {
-  id: string;
-  title: string;
-  priority: string;
-  status: string;
-} }) {
+export default function TaskForm({ editMode = false, data, displayMode, refetchTasks, className }: {
+  editMode?: boolean, 
+  data?: {
+    id: string;
+    title: string;
+    priority: string;
+    status: string;
+    dueDate: string;
+  },
+  refetchTasks?: () => void,
+  displayMode?: "icon" | "button",
+  className?: string;
+}) {
   const formRef = useRef<HTMLFormElement>(null);
   const { userId } = useAuth();
   const [open, setOpen] = useState(false);
+  
+  // Replace useState with useEffect to update values when data changes
   const [task, setTask] = useState({
     title: editMode && data ? data.title : "",
-    priority: editMode && data ? data.priority.toLocaleLowerCase : "low",
+    priority: editMode && data ? data.priority.toLowerCase() : "low",
     status: editMode && data ? data.status : "todo",
+    dueDate: editMode && data ? new Date(data.dueDate).toLocaleString() : new Date().toISOString().split("T")[0], // Default to today's date
   });
-
+  
+  // Update task state when data changes or dialog opens
+  useEffect(() => {
+    if (editMode && data && open) {
+      setTask({
+        title: data.title,
+        priority: data.priority.toLowerCase(),
+        status: data.status,
+        dueDate: new Date(data.dueDate).toISOString().split("T")[0], // Format date to YYYY-MM-DD
+      });
+    }
+  }, [data, editMode, open]);
 
   const queryClient = useQueryClient();
-  // Create mutation
+  const router = useRouter();
+  
   const mutation = useMutation({
-    mutationFn: (data: any) => addTask(data),
+    mutationFn: (formData: any) => {
+      if (editMode && data) {
+        // Remove id from data before sending to API
+        const { id, ...updateData } = formData;
+        return updateTask(data.id, updateData);
+      } else {
+        return addTask(formData);
+      }
+    },
     onSuccess: () => {
-      // Invalidate and refetch tasks query
-      queryClient.invalidateQueries({ queryKey: ["tasks"] });
-      //Show success message
-      toast("Task added", {
-        description: "Sunday, December 03, 2023 at 9:00 AM",
-        action: {
-          label: "Undo",
-          onClick: () => console.log("Undo"),
-        },
-      })
-      // Close dialog
+      // Handle success
+      queryClient.invalidateQueries({ queryKey: ['tasks'] });
+      
       setOpen(false);
-      // Reset form
       formRef.current?.reset();
+      
+      toast(editMode ? "Task updated" : "Task added", {
+        description: new Date().toLocaleString(),
+      });
     },
     onError: (error) => {
-      console.error("Failed to add task:", error);
+      console.error("Error:", error);
     }
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const formData = new FormData(formRef.current as HTMLFormElement);
-    const data = Object.fromEntries(formData.entries());
-
+    const formValues = Object.fromEntries(formData.entries());
+    
     if (userId) {
-      data.userId = userId;
-      // Use the mutation to add the task
-      mutation.mutate(data);
+      const submitData = {
+        ...formValues,
+        userId
+      };
+      
+      mutation.mutate(submitData);
     }
   };
-
+  
+  let title = editMode ? "Edit Task" : "Add Task";
+  let description = editMode ? "Edit the task details." : "Add a new task to the list.";
+  let buttonText = editMode ? "Save Changes" : "Add Task";
+  
   return (
     <>
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogTrigger >
-          {editMode ? <Pencil className="w-4 h-4 cursor-pointer" /> : <span className="bg-blue-500 text-white hover:bg-black cursor-pointer font-medium duration-150 ease-linear rounded px-2 py-1">Add Task</span>}
+        <DialogTrigger className="mb-1">
+          {editMode ? 
+            <Pencil className="w-4 text-blue-700 font-medium h-4 cursor-pointer" /> : 
+            displayMode === "icon" ? 
+              <Plus className="w-8 rounded-full duration-200 text-blue-700 font-medium hover:bg-blue-500 p-1 hover:rounded-full hover:text-white h-8 cursor-pointer" /> : 
+              <p className={`bg-blue-500 text-white px-2 py-1 rounded ${className}`}>
+                {buttonText}
+              </p>
+          }
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Add a new task</DialogTitle>
-            <DialogDescription>
-              Add a new task to the list.
-            </DialogDescription>
+            <DialogTitle>{title}</DialogTitle>
+            <DialogDescription>{description}</DialogDescription>
           </DialogHeader>
+          
           <form className="flex flex-col gap-4" ref={formRef} onSubmit={handleSubmit}>
-            {/* Form fields remain the same */}
             <div className="flex flex-col gap-2">
               <Label htmlFor="title">Title</Label>
-              <Input id="title" placeholder="Task Title" type="text" name="title" className="name" defaultValue={task.title} />
+              <Input 
+                id="title" 
+                placeholder="Task Title" 
+                type="text" 
+                name="title" 
+                defaultValue={task.title} 
+                key={`title-${task.title}`} // Force re-render when value changes
+              />
             </div>
+            
             <div className="flex flex-col gap-2">
               <Label htmlFor="priority">Priority</Label>
-              <Select name="priority" defaultValue={task}>
+              <Select name="priority" defaultValue={task.priority} key={`priority-${task.priority}`}>
                 <SelectTrigger className="w-[180px]">
                   <SelectValue placeholder="Priority" />
                 </SelectTrigger>
@@ -109,9 +156,10 @@ export default function TaskForm({ editMode = false, data }: { editMode?: boolea
                 </SelectContent>
               </Select>
             </div>
+            
             <div className="flex flex-col gap-2">
               <Label htmlFor="status">Status</Label>
-              <Select name="status" defaultValue={task.status}>
+              <Select name="status" defaultValue={task.status} key={`status-${task.status}`}>
                 <SelectTrigger className="w-[180px]">
                   <SelectValue placeholder="Status" />
                 </SelectTrigger>
@@ -122,17 +170,19 @@ export default function TaskForm({ editMode = false, data }: { editMode?: boolea
                 </SelectContent>
               </Select>
             </div>
+            
+            <Input type="date" defaultValue={task.dueDate} name="dueDate" placeholder="Due Date" className="w-full" />
+            
             <Input
               className="bg-blue-500 text-white cursor-pointer hover:bg-blue-600 duration-150"
               type="submit"
               disabled={mutation.isPending}
-              value={mutation.isPending ? "Adding..." : "Add Task"}
+              value={mutation.isPending ? 
+                (editMode ? "Saving..." : "Adding...") : 
+                buttonText
+              }
             />
-            {mutation.isError && (
-              <p className="text-red-500 text-sm">
-                Error: Failed to add task
-              </p>
-            )}
+
           </form>
         </DialogContent>
       </Dialog>

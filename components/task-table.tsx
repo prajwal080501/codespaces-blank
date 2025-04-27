@@ -17,18 +17,20 @@ import { Trash } from "lucide-react"
 import { Button } from "./ui/button"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { TableFilter } from "./table-filter"
-import { useState } from "react"
 import TaskForm from "@/forms/task-form"
+import { Input } from "./ui/input"
 
-export default function TaskTable({ tasks, setFilter }: {
+export default function TaskTable({ tasks, setFilter, refetchTasks}: {
     tasks: {
         userId: string,
         id: string,
         title: string,
         status: string,
         priority: string,
+        dueDate: string,
     }[],
-    setFilter: (filter: Record<string, string>) => void
+    setFilter: (filter: Record<string, string>) => void,
+    refetchTasks: () => void,
 
 }) {
     const router = useRouter();
@@ -55,14 +57,24 @@ export default function TaskTable({ tasks, setFilter }: {
     };
     return (
         <div>
-            <div className="w-full self-end flex items-end p-2 justify-end">
+            <div className="w-full self-end flex dark:bg-black items-end p-2 justify-end gap-3">
+                <Input type="text" name='search' placeholder="Search" className="w-42 dark:bg-black bg-white ring-0 focus:ring-1 focus:ring-blue-500" />
+                <TaskForm />
+                <Button 
+                    onClick={refetchTasks} 
+                    variant="outline" 
+                    className="px-2 py-1"
+                >
+                    Refresh
+                </Button>
                 <TableFilter filterTitle="Tasks filter" tasks={tasks} setFilter={setFilter} />
             </div>
-            <Table className="bg-white rounded-lg">
+            <Table className="bg-white dark:bg-black/90 rounded">
                 <TableCaption>A list of your recent tasks.</TableCaption>
-                <TableHeader>
-                    <TableRow className="bg-gray-200">
+                <TableHeader className="rounded-lg">
+                    <TableRow className="bg-gray-200 dark:bg-zinc-900">
                         <TableHead className="w-[100px] font-extrabold">Title</TableHead>
+                        <TableHead className="w-[100px] font-extrabold">Date</TableHead>
                         <TableHead className="font-extrabold">Status</TableHead>
                         <TableHead className="font-extrabold">Priority</TableHead>
                         <TableHead className="font-extrabold">Actions</TableHead>
@@ -71,8 +83,13 @@ export default function TaskTable({ tasks, setFilter }: {
                 <TableBody>
                     {tasks && tasks.length > 0 ? (
                         tasks.map((task) => (
-                            <TableRow className="hover:bg-blue-100 cursor-pointer duration-150" key={task.id}>
+                            <TableRow className="hover:bg-blue-100 hover:dark:bg-zinc-800 cursor-pointer duration-150" key={task.id}>
                                 <TableCell className="font-medium">{task.title}</TableCell>
+                                <TableCell>
+                                    {
+                                        task.dueDate ? new Date(task.dueDate).toLocaleDateString() : 'No due date'
+                                    }
+                                </TableCell>
                                 <TableCell className={
                                     taskStatusClassMap[task.status as keyof typeof taskStatusClassMap] + " font-medium"
                                 }>
@@ -84,17 +101,17 @@ export default function TaskTable({ tasks, setFilter }: {
                                     {task.priority.charAt(0).toUpperCase() + task.priority.slice(1)}
                                 </TableCell>
                                 <TableCell className="text-right">
-                                   <div className="flex items-center justify-end gap-2">
-                                   <TaskForm editMode data={task}/>
-                                    <Button
-                                        onClick={() => handleDelete(task.id)}
-                                        variant="ghost"
-                                        className="w-8 h-8 rounded-full hover:bg-red-500 hover:text-white duration-75 cursor-pointer"
-                                        disabled={mutation.isPending}
-                                    >
-                                        <Trash className="w-4 h-4 hover:text-white duration-75 hover:scale-105" />
-                                    </Button>
-                                   </div>
+                                    <div className="flex items-center justify-end gap-2">
+                                        <TaskForm editMode data={task} />
+                                        <Button
+                                            onClick={() => handleDelete(task.id)}
+                                            variant="ghost"
+                                            className="w-8 h-8 rounded-full hover:bg-red-500 hover:text-white duration-75 cursor-pointer"
+                                            disabled={mutation.isPending}
+                                        >
+                                            <Trash className="w-4 h-4 text-red-500 hover:text-white duration-75 hover:scale-105" />
+                                        </Button>
+                                    </div>
                                 </TableCell>
                             </TableRow>
                         ))
@@ -106,7 +123,7 @@ export default function TaskTable({ tasks, setFilter }: {
                 </TableBody>
                 <TableFooter>
                     <TableRow>
-                        <TableCell colSpan={3}>Total Tasks</TableCell>
+                        <TableCell className="text-black font-bold dark:text-white" colSpan={4}>Total Tasks</TableCell>
                         <TableCell className="text-right">{tasks?.length || 0}</TableCell>
                     </TableRow>
                 </TableFooter>

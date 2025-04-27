@@ -930,6 +930,7 @@ export namespace Prisma {
     priority: string | null
     status: string | null
     userId: string | null
+    dueDate: Date | null
   }
 
   export type TaskMaxAggregateOutputType = {
@@ -938,6 +939,7 @@ export namespace Prisma {
     priority: string | null
     status: string | null
     userId: string | null
+    dueDate: Date | null
   }
 
   export type TaskCountAggregateOutputType = {
@@ -946,6 +948,7 @@ export namespace Prisma {
     priority: number
     status: number
     userId: number
+    dueDate: number
     _all: number
   }
 
@@ -956,6 +959,7 @@ export namespace Prisma {
     priority?: true
     status?: true
     userId?: true
+    dueDate?: true
   }
 
   export type TaskMaxAggregateInputType = {
@@ -964,6 +968,7 @@ export namespace Prisma {
     priority?: true
     status?: true
     userId?: true
+    dueDate?: true
   }
 
   export type TaskCountAggregateInputType = {
@@ -972,6 +977,7 @@ export namespace Prisma {
     priority?: true
     status?: true
     userId?: true
+    dueDate?: true
     _all?: true
   }
 
@@ -1053,6 +1059,7 @@ export namespace Prisma {
     priority: string
     status: string
     userId: string
+    dueDate: Date
     _count: TaskCountAggregateOutputType | null
     _min: TaskMinAggregateOutputType | null
     _max: TaskMaxAggregateOutputType | null
@@ -1078,6 +1085,7 @@ export namespace Prisma {
     priority?: boolean
     status?: boolean
     userId?: boolean
+    dueDate?: boolean
   }, ExtArgs["result"]["task"]>
 
 
@@ -1088,9 +1096,10 @@ export namespace Prisma {
     priority?: boolean
     status?: boolean
     userId?: boolean
+    dueDate?: boolean
   }
 
-  export type TaskOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "priority" | "status" | "userId", ExtArgs["result"]["task"]>
+  export type TaskOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "priority" | "status" | "userId" | "dueDate", ExtArgs["result"]["task"]>
 
   export type $TaskPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Task"
@@ -1101,6 +1110,7 @@ export namespace Prisma {
       priority: string
       status: string
       userId: string
+      dueDate: Date
     }, ExtArgs["result"]["task"]>
     composites: {}
   }
@@ -1498,6 +1508,7 @@ export namespace Prisma {
     readonly priority: FieldRef<"Task", 'String'>
     readonly status: FieldRef<"Task", 'String'>
     readonly userId: FieldRef<"Task", 'String'>
+    readonly dueDate: FieldRef<"Task", 'DateTime'>
   }
     
 
@@ -2765,7 +2776,8 @@ export namespace Prisma {
     title: 'title',
     priority: 'priority',
     status: 'status',
-    userId: 'userId'
+    userId: 'userId',
+    dueDate: 'dueDate'
   };
 
   export type TaskScalarFieldEnum = (typeof TaskScalarFieldEnum)[keyof typeof TaskScalarFieldEnum]
@@ -2816,6 +2828,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'DateTime'
+   */
+  export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
+    
+
+
+  /**
+   * Reference to a field of type 'DateTime[]'
+   */
+  export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -2841,6 +2867,7 @@ export namespace Prisma {
     priority?: StringFilter<"Task"> | string
     status?: StringFilter<"Task"> | string
     userId?: StringFilter<"Task"> | string
+    dueDate?: DateTimeFilter<"Task"> | Date | string
   }
 
   export type TaskOrderByWithRelationInput = {
@@ -2849,6 +2876,7 @@ export namespace Prisma {
     priority?: SortOrder
     status?: SortOrder
     userId?: SortOrder
+    dueDate?: SortOrder
   }
 
   export type TaskWhereUniqueInput = Prisma.AtLeast<{
@@ -2860,6 +2888,7 @@ export namespace Prisma {
     priority?: StringFilter<"Task"> | string
     status?: StringFilter<"Task"> | string
     userId?: StringFilter<"Task"> | string
+    dueDate?: DateTimeFilter<"Task"> | Date | string
   }, "id">
 
   export type TaskOrderByWithAggregationInput = {
@@ -2868,6 +2897,7 @@ export namespace Prisma {
     priority?: SortOrder
     status?: SortOrder
     userId?: SortOrder
+    dueDate?: SortOrder
     _count?: TaskCountOrderByAggregateInput
     _max?: TaskMaxOrderByAggregateInput
     _min?: TaskMinOrderByAggregateInput
@@ -2882,6 +2912,7 @@ export namespace Prisma {
     priority?: StringWithAggregatesFilter<"Task"> | string
     status?: StringWithAggregatesFilter<"Task"> | string
     userId?: StringWithAggregatesFilter<"Task"> | string
+    dueDate?: DateTimeWithAggregatesFilter<"Task"> | Date | string
   }
 
   export type UserWhereInput = {
@@ -2932,6 +2963,7 @@ export namespace Prisma {
     priority: string
     status: string
     userId: string
+    dueDate: Date | string
   }
 
   export type TaskUncheckedCreateInput = {
@@ -2940,6 +2972,7 @@ export namespace Prisma {
     priority: string
     status: string
     userId: string
+    dueDate: Date | string
   }
 
   export type TaskUpdateInput = {
@@ -2947,6 +2980,7 @@ export namespace Prisma {
     priority?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TaskUncheckedUpdateInput = {
@@ -2954,6 +2988,7 @@ export namespace Prisma {
     priority?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TaskCreateManyInput = {
@@ -2962,6 +2997,7 @@ export namespace Prisma {
     priority: string
     status: string
     userId: string
+    dueDate: Date | string
   }
 
   export type TaskUpdateManyMutationInput = {
@@ -2969,6 +3005,7 @@ export namespace Prisma {
     priority?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TaskUncheckedUpdateManyInput = {
@@ -2976,6 +3013,7 @@ export namespace Prisma {
     priority?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserCreateInput = {
@@ -3031,12 +3069,24 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
+  export type DateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
   export type TaskCountOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
     priority?: SortOrder
     status?: SortOrder
     userId?: SortOrder
+    dueDate?: SortOrder
   }
 
   export type TaskMaxOrderByAggregateInput = {
@@ -3045,6 +3095,7 @@ export namespace Prisma {
     priority?: SortOrder
     status?: SortOrder
     userId?: SortOrder
+    dueDate?: SortOrder
   }
 
   export type TaskMinOrderByAggregateInput = {
@@ -3053,6 +3104,7 @@ export namespace Prisma {
     priority?: SortOrder
     status?: SortOrder
     userId?: SortOrder
+    dueDate?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -3071,6 +3123,20 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedStringFilter<$PrismaModel>
     _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type UserCountOrderByAggregateInput = {
@@ -3095,6 +3161,10 @@ export namespace Prisma {
     set?: string
   }
 
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -3107,6 +3177,17 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringFilter<$PrismaModel> | string
+  }
+
+  export type NestedDateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
@@ -3135,6 +3216,20 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
 
