@@ -39,7 +39,7 @@ export function TableFilter({ setFilter, filterTitle }: {
     // Remove "all" values as they should not be used for filtering
     // Original code with error:
     const cleanFilter = Object.fromEntries(
-      Object.entries(filterData).filter(([_, value]) => value !== '' && value !== 'all')
+      Object.entries(filterData).filter(([, value]) => value !== '' && value !== 'all')
     );
     setLocalFilter(cleanFilter)
     setFilter(cleanFilter)

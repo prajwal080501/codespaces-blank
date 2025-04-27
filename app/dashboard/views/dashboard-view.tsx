@@ -1,6 +1,6 @@
 'use client'
 import { Chart } from "../charts/pie-chart";
-import { TaskObjectData, TasksData } from "@/types";
+import {  TasksData } from "@/types";
 
 export default function DashboardView({ data }: { data: TasksData }) {
   return (

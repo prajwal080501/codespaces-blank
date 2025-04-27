@@ -22,8 +22,7 @@ import { Label } from "@/components/ui/label";
 import { useAuth } from "@clerk/nextjs";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { toast } from "sonner"
-import { Pencil, Plus, Router } from "lucide-react";
-import { useRouter } from "next/navigation"
+import { Pencil, Plus } from "lucide-react";
 import { TaskObjectData } from "@/types";
 
 export default function TaskForm({ editMode = false, data, displayMode, className }: {
@@ -36,12 +35,12 @@ export default function TaskForm({ editMode = false, data, displayMode, classNam
   const { userId } = useAuth();
   const [open, setOpen] = useState(false);
   
-  // Replace useState with useEffect to update values when data changes
+  // State for task data
   const [task, setTask] = useState({
     title: editMode && data ? data.title : "",
     priority: editMode && data ? data.priority.toLowerCase() : "low",
     status: editMode && data ? data.status : "todo",
-    dueDate: editMode && data ? data.dueDate && new Date(data.dueDate).toLocaleString() : new Date().toISOString().split("T")[0], // Default to today's date
+    dueDate: editMode && data ? data.dueDate && new Date(data.dueDate).toISOString().split("T")[0] : new Date().toISOString().split("T")[0],
   });
   
   // Update task state when data changes or dialog opens
@@ -51,20 +50,25 @@ export default function TaskForm({ editMode = false, data, displayMode, classNam
         title: data.title,
         priority: data.priority.toLowerCase(),
         status: data.status,
-        dueDate: data.dueDate && new Date(data.dueDate).toISOString().split("T")[0] || '', // Format date to YYYY-MM-DD
+        dueDate: data.dueDate && new Date(data.dueDate).toISOString().split("T")[0] || '',
       });
     }
   }, [data, editMode, open]);
 
   const queryClient = useQueryClient();
-  const router = useRouter();
   
+  // Fixed mutation definition
   const mutation = useMutation({
-    mutationFn: (formData: any) => {
+    mutationFn: (formData: {
+      title: string;
+      priority: string;
+      status: string;
+      dueDate: string;
+      userId: string;
+    }) => {
       if (editMode && data) {
         // Remove id from data before sending to API
-        const { id, ...updateData } = formData;
-        return updateTask(data.id, updateData);
+        return updateTask(data.id, formData);
       } else {
         return addTask(formData);
       }
@@ -96,13 +100,19 @@ export default function TaskForm({ editMode = false, data, displayMode, classNam
         userId
       };
       
-      mutation.mutate(submitData);
+      mutation.mutate(submitData as {
+        title: string;
+        priority: string;
+        status: string;
+        dueDate: string;
+        userId: string;
+      });
     }
   };
   
-  let title = editMode ? "Edit Task" : "Add Task";
-  let description = editMode ? "Edit the task details." : "Add a new task to the list.";
-  let buttonText = editMode ? "Save Changes" : "Add Task";
+  const title = editMode ? "Edit Task" : "Add Task";
+  const description = editMode ? "Edit the task details." : "Add a new task to the list.";
+  const buttonText = editMode ? "Save Changes" : "Add Task";
   
   return (
     <>
@@ -132,7 +142,7 @@ export default function TaskForm({ editMode = false, data, displayMode, classNam
                 type="text" 
                 name="title" 
                 defaultValue={task.title} 
-                key={`title-${task.title}`} // Force re-render when value changes
+                key={`title-${task.title}`}
               />
             </div>
             
@@ -164,7 +174,16 @@ export default function TaskForm({ editMode = false, data, displayMode, classNam
               </Select>
             </div>
             
-            <Input type="date" defaultValue={task.dueDate} name="dueDate" placeholder="Due Date" className="w-full" />
+            <div className="flex flex-col gap-2">
+              <Label htmlFor="dueDate">Due Date</Label>
+              <Input 
+                type="date" 
+                id="dueDate"
+                defaultValue={task.dueDate} 
+                name="dueDate" 
+                key={`dueDate-${task.dueDate}`}
+              />
+            </div>
             
             <Input
               className="bg-blue-500 text-white cursor-pointer hover:bg-blue-600 duration-150"
@@ -175,7 +194,6 @@ export default function TaskForm({ editMode = false, data, displayMode, classNam
                 buttonText
               }
             />
-
           </form>
         </DialogContent>
       </Dialog>

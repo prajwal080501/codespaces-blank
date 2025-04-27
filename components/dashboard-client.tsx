@@ -16,13 +16,15 @@ import { TasksData } from '@/types';
 
 export default function DashboardClient({ 
   userId,
-  user,
 }: { 
   userId: string;
-  user:any;
+  user:{
+    firstName: string;
+    lastName: string;
+  };
 }) {
   // Set up React Query with initialData from server
-  const { data: tasks, isLoading } = useQuery<TasksData>({
+  const { data: tasks } = useQuery<TasksData>({
     queryKey: ['tasks', userId],
     queryFn: () => getAllTasksByUserId(userId),
     refetchOnWindowFocus: true,
@@ -49,7 +51,7 @@ export default function DashboardClient({
         </TabsList>
         
         <TabsContent value="list-view" className="cursor-pointer bg-white dark:bg-black/80 rounded-lg">
-          <ListView tasks={tasks || []} userId={userId} user={user} />
+          <ListView tasks={tasks || []} userId={userId}  />
         </TabsContent>
         <TabsContent value="dashboard">
           <DashboardView data={tasks && tasks || []} />
