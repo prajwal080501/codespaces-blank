@@ -1,16 +1,9 @@
-import TaskForm from "@/forms/task-form";
+import { TaskObjectData } from "@/types";
 
 export default function KanbanCard({
     task
 }:{
-    task: {
-        id: string;
-        title: string;
-        priority: string;
-        status: string;
-        dueDate: Date;
-        userId: string;
-    }
+    task: TaskObjectData
 }){
 
     return (
@@ -32,7 +25,7 @@ export default function KanbanCard({
                     {task.title}
                 </div>
                 <div className="text-sm text-gray-500">
-                    {new Date(task.dueDate).toLocaleDateString()}
+                    {task.dueDate && new Date(task.dueDate).toLocaleDateString()}
                 </div>
             </div>
             {/* Bottom bar */}

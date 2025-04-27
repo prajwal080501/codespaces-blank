@@ -1,6 +1,6 @@
 
 'use client'
-import { deleteTask, getAllTasksByUserId } from "@/actions/task";
+import { getAllTasksByUserId } from "@/actions/task";
 import TaskTable from "./task-table";
 import { useCallback, useState } from "react";
 import { useQuery, useQueryClient } from '@tanstack/react-query'

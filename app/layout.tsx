@@ -4,7 +4,6 @@ import "./globals.css";
 import HeaderWrapper from "@/components/header-wrapper";
 import { auth } from "@clerk/nextjs/server";
 import { Toaster } from "@/components/ui/sonner"
-import Footer from "@/components/footer";
 import { ThemeProvider } from "@/components/theme-provider";
 export const metadata: Metadata = {
     title: "Create Next App",

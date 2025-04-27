@@ -9,11 +9,10 @@ import {
   TabsTrigger,
 } from "@/components/ui/tabs"
 import { Kanban, LayoutDashboard, List } from 'lucide-react';
-import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb"
-import Link from "next/link"
 import ListView from '@/app/dashboard/views/list-view';
 import DashboardView from '@/app/dashboard/views/dashboard-view';
 import KanbanView from '@/app/dashboard/views/kanban-view';
+import { TasksData } from '@/types';
 
 export default function DashboardClient({ 
   userId,
@@ -23,7 +22,7 @@ export default function DashboardClient({
   user:any;
 }) {
   // Set up React Query with initialData from server
-  const { data: tasks, isLoading } = useQuery({
+  const { data: tasks, isLoading } = useQuery<TasksData>({
     queryKey: ['tasks', userId],
     queryFn: () => getAllTasksByUserId(userId),
     refetchOnWindowFocus: true,
@@ -53,10 +52,10 @@ export default function DashboardClient({
           <ListView tasks={tasks || []} userId={userId} user={user} />
         </TabsContent>
         <TabsContent value="dashboard">
-          <DashboardView data={tasks} />
+          <DashboardView data={tasks && tasks || []} />
         </TabsContent>
         <TabsContent value="kanban-view" className="cursor-pointer">
-          <KanbanView data={tasks}/>
+          <KanbanView data={tasks && tasks || []}/>
         </TabsContent>
       </Tabs>
     </div>

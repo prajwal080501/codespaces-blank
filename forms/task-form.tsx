@@ -24,18 +24,11 @@ import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { toast } from "sonner"
 import { Pencil, Plus, Router } from "lucide-react";
 import { useRouter } from "next/navigation"
-import { DatePicker } from "@/components/date-picker";
+import { TaskObjectData } from "@/types";
 
-export default function TaskForm({ editMode = false, data, displayMode, refetchTasks, className }: {
+export default function TaskForm({ editMode = false, data, displayMode, className }: {
   editMode?: boolean, 
-  data?: {
-    id: string;
-    title: string;
-    priority: string;
-    status: string;
-    dueDate: string;
-  },
-  refetchTasks?: () => void,
+  data?: TaskObjectData
   displayMode?: "icon" | "button",
   className?: string;
 }) {
@@ -48,7 +41,7 @@ export default function TaskForm({ editMode = false, data, displayMode, refetchT
     title: editMode && data ? data.title : "",
     priority: editMode && data ? data.priority.toLowerCase() : "low",
     status: editMode && data ? data.status : "todo",
-    dueDate: editMode && data ? new Date(data.dueDate).toLocaleString() : new Date().toISOString().split("T")[0], // Default to today's date
+    dueDate: editMode && data ? data.dueDate && new Date(data.dueDate).toLocaleString() : new Date().toISOString().split("T")[0], // Default to today's date
   });
   
   // Update task state when data changes or dialog opens
@@ -58,7 +51,7 @@ export default function TaskForm({ editMode = false, data, displayMode, refetchT
         title: data.title,
         priority: data.priority.toLowerCase(),
         status: data.status,
-        dueDate: new Date(data.dueDate).toISOString().split("T")[0], // Format date to YYYY-MM-DD
+        dueDate: data.dueDate && new Date(data.dueDate).toISOString().split("T")[0] || '', // Format date to YYYY-MM-DD
       });
     }
   }, [data, editMode, open]);

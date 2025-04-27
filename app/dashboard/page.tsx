@@ -10,7 +10,7 @@ import Link from "next/link"
 export default async function Page() {
   const { userId } = await auth()
   const user = await currentUser()
-  let userObject = {
+  const userObject = {
     firstName: user?.firstName ?? '',
     lastName: user?.lastName ?? '',
   }
@@ -42,7 +42,7 @@ export default async function Page() {
         <Separator className="h-px bg-muted/50" />
         {/* Pass the userId to the client component */}
         <div className="relative flex w-full items-center justify-between p-2 font-bold text-black">
-          <DashboardMessage userId={userId || ''} userName={userObject.firstName + ' ' + userObject.lastName}  />
+          <DashboardMessage userName={userObject.firstName + ' ' + userObject.lastName}  />
         </div>
         <DashboardClient userId={userId || ''} user={userObject} />
       </SidebarInset>

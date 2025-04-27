@@ -2,16 +2,10 @@
 import TaskForm from "@/forms/task-form";
 import KanbanCard from "./kanban-card";
 import { Separator } from "./ui/separator";
+import { TasksData } from "@/types";
 
 export default function KanbanContainer({ type, tasks }: {
-    type: string, tasks: {
-        userId: string,
-        id: string,
-        title: string,
-        status: string,
-        priority: string,
-        dueDate: Date,
-    }[]
+    type: string, tasks: TasksData
 }) {
     let title = "";
     if (type === "todo") {

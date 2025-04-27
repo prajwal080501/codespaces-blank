@@ -1,17 +1,9 @@
 'use client'
 import ListContainer from "@/components/list-container"
-import DashboardMessage from "@/components/dashboard-message"
-import { Separator } from "@radix-ui/react-separator"
+import { TasksData } from "@/types"
 
 export default function ListView({tasks, user, userId}: {
-    tasks: {
-        id: string;
-        title: string;
-        status: string;
-        priority: string;
-        userId: string;
-        dueDate: Date;
-    }[],
+    tasks: TasksData,
     user:any,
     userId: string
 }) {

@@ -1,14 +1,8 @@
 'use client'
 import KanbanContainer from "@/components/kanban-container";
+import { TasksData } from "@/types";
 export default function KanbanView({data}:{
-    data: {
-        id: string;
-        title: string;
-        status: string;
-        priority: string;
-        userId: string;
-        dueDate: Date;
-    }[]
+    data: TasksData,
 }) {
 
     let todo = data.filter((task) => task.status === "todo");

@@ -16,7 +16,7 @@ import {
 import { SlidersHorizontal } from "lucide-react"
 import { useRef, useState } from "react"
 
-export function TableFilter({ setFilter, filterTitle, tasks }: {
+export function TableFilter({ setFilter, filterTitle }: {
   setFilter: (filter: Record<string, string>) => void,
   filterTitle: string,
   tasks: {
@@ -37,10 +37,10 @@ export function TableFilter({ setFilter, filterTitle, tasks }: {
     const filterData = Object.fromEntries(formData.entries()) as Record<string, string>;
 
     // Remove "all" values as they should not be used for filtering
-    const cleanFilter = Object.fromEntries(
-      Object.entries(filterData).filter(([_, value]) => value !== '' && value !== 'all')
-    );
-
+    // Original code with error:
+const cleanFilter = Object.fromEntries(
+  Object.entries(filterData).filter(value => value !== '' && value !== 'all')
+);
     setLocalFilter(cleanFilter)
     setFilter(cleanFilter)
     setOpen(false); // Close the popover

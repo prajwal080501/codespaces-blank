@@ -3,10 +3,8 @@ import Header from "./header";
 
 export default async function HeaderServer({
     brandName,
-    pathname,
 }: {
     brandName: string;
-    pathname: string;
 }) {
     const { userId } = await auth(); // Server-side logic
 

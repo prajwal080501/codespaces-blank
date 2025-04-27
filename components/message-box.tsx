@@ -1,4 +1,3 @@
-import Emoji from "./emoji";
 
 export default function MessageBox(message:{message:{type: string, message:string, description:string}}){
     let bg = '';

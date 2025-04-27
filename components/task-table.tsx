@@ -19,16 +19,10 @@ import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { TableFilter } from "./table-filter"
 import TaskForm from "@/forms/task-form"
 import { Input } from "./ui/input"
+import { TasksData } from "@/types"
 
 export default function TaskTable({ tasks, setFilter, refetchTasks}: {
-    tasks: {
-        userId: string,
-        id: string,
-        title: string,
-        status: string,
-        priority: string,
-        dueDate: string,
-    }[],
+    tasks: TasksData,
     setFilter: (filter: Record<string, string>) => void,
     refetchTasks: () => void,
 
