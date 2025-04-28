@@ -4,17 +4,18 @@ datasource db {
 }
 
 generator client {
-  provider = "prisma-client-js"
-  output = "../generated/prisma"
+  provider      = "prisma-client-js"
+  output        = "../generated/prisma"
+  binaryTargets = ["native", "debian-openssl-1.1.x", "rhel-openssl-3.0.x"]
 }
 
 model Task {
-  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
   title    String
   priority String
   status   String
-  userId String
-  dueDate DateTime
+  userId   String
+  dueDate  DateTime
 }
 
 model User {

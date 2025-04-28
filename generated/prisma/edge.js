@@ -134,6 +134,14 @@ const config = {
         "fromEnvVar": null,
         "value": "debian-openssl-1.1.x",
         "native": true
+      },
+      {
+        "fromEnvVar": null,
+        "value": "debian-openssl-1.1.x"
+      },
+      {
+        "fromEnvVar": null,
+        "value": "rhel-openssl-3.0.x"
       }
     ],
     "previewFeatures": [],
@@ -160,8 +168,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "datasource db {\n  provider = \"mongodb\"\n  url      = env(\"DATABASE_URL\")\n}\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\nmodel Task {\n  id       String   @id @default(auto()) @map(\"_id\") @db.ObjectId\n  title    String\n  priority String\n  status   String\n  userId   String\n  dueDate  DateTime\n}\n\nmodel User {\n  id       String @id @default(auto()) @map(\"_id\") @db.ObjectId\n  username String\n  email    String\n}\n",
-  "inlineSchemaHash": "d49263ab83ce4bf92f257d1739cecf211c1d50bf6205fabe960de8ac8fa483c7",
+  "inlineSchema": "datasource db {\n  provider = \"mongodb\"\n  url      = env(\"DATABASE_URL\")\n}\n\ngenerator client {\n  provider      = \"prisma-client-js\"\n  output        = \"../generated/prisma\"\n  binaryTargets = [\"native\", \"debian-openssl-1.1.x\", \"rhel-openssl-3.0.x\"]\n}\n\nmodel Task {\n  id       String   @id @default(auto()) @map(\"_id\") @db.ObjectId\n  title    String\n  priority String\n  status   String\n  userId   String\n  dueDate  DateTime\n}\n\nmodel User {\n  id       String @id @default(auto()) @map(\"_id\") @db.ObjectId\n  username String\n  email    String\n}\n",
+  "inlineSchemaHash": "8d28b9089df04a9d4bad1b058017703e3abfca0801885320ad2e990d4f2fa1f7",
   "copyEngine": true
 }
 config.dirname = '/'
