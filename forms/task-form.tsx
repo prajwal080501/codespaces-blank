@@ -26,7 +26,7 @@ import { Pencil, Plus } from "lucide-react";
 import { TaskObjectData } from "@/types";
 
 export default function TaskForm({ editMode = false, data, displayMode, className }: {
-  editMode?: boolean, 
+  editMode?: boolean,
   data?: TaskObjectData
   displayMode?: "icon" | "button",
   className?: string;
@@ -34,7 +34,7 @@ export default function TaskForm({ editMode = false, data, displayMode, classNam
   const formRef = useRef<HTMLFormElement>(null);
   const { userId } = useAuth();
   const [open, setOpen] = useState(false);
-  
+
   // State for task data
   const [task, setTask] = useState({
     title: editMode && data ? data.title : "",
@@ -42,7 +42,7 @@ export default function TaskForm({ editMode = false, data, displayMode, classNam
     status: editMode && data ? data.status : "todo",
     dueDate: editMode && data ? data.dueDate && new Date(data.dueDate).toISOString().split("T")[0] : new Date().toISOString().split("T")[0],
   });
-  
+
   // Update task state when data changes or dialog opens
   useEffect(() => {
     if (editMode && data && open) {
@@ -56,7 +56,7 @@ export default function TaskForm({ editMode = false, data, displayMode, classNam
   }, [data, editMode, open]);
 
   const queryClient = useQueryClient();
-  
+
   // Fixed mutation definition
   const mutation = useMutation({
     mutationFn: (formData: {
@@ -76,10 +76,10 @@ export default function TaskForm({ editMode = false, data, displayMode, classNam
     onSuccess: () => {
       // Handle success
       queryClient.invalidateQueries({ queryKey: ['tasks'] });
-      
+
       setOpen(false);
       formRef.current?.reset();
-      
+
       toast(editMode ? "Task updated" : "Task added", {
         description: new Date().toLocaleString(),
       });
@@ -93,13 +93,13 @@ export default function TaskForm({ editMode = false, data, displayMode, classNam
     e.preventDefault();
     const formData = new FormData(formRef.current as HTMLFormElement);
     const formValues = Object.fromEntries(formData.entries());
-    
+
     if (userId) {
       const submitData = {
         ...formValues,
         userId
       };
-      
+
       mutation.mutate(submitData as {
         title: string;
         priority: string;
@@ -109,19 +109,19 @@ export default function TaskForm({ editMode = false, data, displayMode, classNam
       });
     }
   };
-  
+
   const title = editMode ? "Edit Task" : "Add Task";
   const description = editMode ? "Edit the task details." : "Add a new task to the list.";
   const buttonText = editMode ? "Save Changes" : "Add Task";
-  
+
   return (
     <>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger className="mb-1">
-          {editMode ? 
-            <Pencil className="w-4 text-blue-700 font-medium h-4 cursor-pointer" /> : 
-            displayMode === "icon" ? 
-              <Plus className="w-8 rounded-full duration-200 text-blue-700 font-medium hover:bg-blue-500 p-1 hover:rounded-full hover:text-white h-8 cursor-pointer" /> : 
+          {editMode ?
+            <Pencil className="w-4 text-blue-700 font-medium h-4 cursor-pointer" /> :
+            displayMode === "icon" ?
+              <Plus className="w-8 rounded-full duration-200 text-blue-700 font-medium hover:bg-blue-500 p-1 hover:rounded-full hover:text-white h-8 cursor-pointer" /> :
               <p className={`bg-blue-500 text-white px-2 py-1 rounded ${className}`}>
                 {buttonText}
               </p>
@@ -132,20 +132,20 @@ export default function TaskForm({ editMode = false, data, displayMode, classNam
             <DialogTitle>{title}</DialogTitle>
             <DialogDescription>{description}</DialogDescription>
           </DialogHeader>
-          
+
           <form className="flex flex-col gap-4" ref={formRef} onSubmit={handleSubmit}>
             <div className="flex flex-col gap-2">
               <Label htmlFor="title">Title</Label>
-              <Input 
-                id="title" 
-                placeholder="Task Title" 
-                type="text" 
-                name="title" 
-                defaultValue={task.title} 
+              <Input
+                id="title"
+                placeholder="Task Title"
+                type="text"
+                name="title"
+                defaultValue={task.title}
                 key={`title-${task.title}`}
               />
             </div>
-            
+
             <div className="flex flex-col gap-2">
               <Label htmlFor="priority">Priority</Label>
               <Select name="priority" defaultValue={task.priority} key={`priority-${task.priority}`}>
@@ -159,7 +159,7 @@ export default function TaskForm({ editMode = false, data, displayMode, classNam
                 </SelectContent>
               </Select>
             </div>
-            
+
             <div className="flex flex-col gap-2">
               <Label htmlFor="status">Status</Label>
               <Select name="status" defaultValue={task.status} key={`status-${task.status}`}>
@@ -173,24 +173,24 @@ export default function TaskForm({ editMode = false, data, displayMode, classNam
                 </SelectContent>
               </Select>
             </div>
-            
+
             <div className="flex flex-col gap-2">
               <Label htmlFor="dueDate">Due Date</Label>
-              <Input 
-                type="date" 
+              <Input
+                type="date"
                 id="dueDate"
-                defaultValue={task.dueDate} 
-                name="dueDate" 
+                defaultValue={task.dueDate}
+                name="dueDate"
                 key={`dueDate-${task.dueDate}`}
               />
             </div>
-            
+
             <Input
               className="bg-blue-500 text-white cursor-pointer hover:bg-blue-600 duration-150"
               type="submit"
               disabled={mutation.isPending}
-              value={mutation.isPending ? 
-                (editMode ? "Saving..." : "Adding...") : 
+              value={mutation.isPending ?
+                (editMode ? "Saving..." : "Adding...") :
                 buttonText
               }
             />
