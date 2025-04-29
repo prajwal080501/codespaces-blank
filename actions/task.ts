@@ -2,10 +2,17 @@
 
 import { prisma } from "@/lib/prisma";
 
-export const addTask = async (input: any) => {
+export const addTask = async (input: {
+    title: string;
+    description: string;
+    dueDate: Date;
+    status: string;
+    priority: string;
+    userId: string;
+}) => {
     console.log(input, 'input'); debugger;
     input.dueDate = new Date(input.dueDate);
-    let res = await prisma.task.create({
+    const res = await prisma.task.create({
         data: input,
     })
     console.log(res, 'res action')
@@ -14,7 +21,7 @@ export const addTask = async (input: any) => {
 
 export const getAllTasksByUserId = async (userId: string) => {
     console.log(userId, 'userId'); debugger;
-    let res = await prisma.task.findMany({
+    const res = await prisma.task.findMany({
         where: {
             userId: userId,
         }
@@ -34,25 +41,31 @@ export const deleteTask = async (taskId: string) => {
     return res;
 }
 
-const getTaskByyId = async (taskId: string) => {
-    const task = await prisma.task.findFirst({
-        where: {
-            id: taskId,
-        }
-    })
+// const getTaskByyId = async (taskId: string) => {
+//     const task = await prisma.task.findFirst({
+//         where: {
+//             id: taskId,
+//         }
+//     })
 
-    return task;
-}
+//     return task;
+// }
 
-export const updateTask = async (taskId: string, data: any) => {
+export const updateTask = async (taskId: string, data: {
+    title: string;
+    description: string;
+    dueDate: Date;
+    status: string;
+    priority: string;
+    userId: string;
+}) => {
     // Create a new object without the id property
-    const { id, ...updateData } = data;
-    updateData.dueDate = new Date(updateData.dueDate); // Ensure dueDate is a Date object
+    data.dueDate = new Date(data.dueDate); // Ensure dueDate is a Date object
     const task = await prisma.task.update({
       where: {
         id: taskId,
       },
-      data: updateData, // Use the data without the id field
+      data: data, // Use the data object directly
     });
   
     return task;
