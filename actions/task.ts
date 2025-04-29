@@ -1,6 +1,6 @@
 'use server'
 
-import prisma from "@/primsa"
+import { prisma } from "@/lib/prisma";
 
 export const addTask = async (input: any) => {
     console.log(input, 'input'); debugger;
