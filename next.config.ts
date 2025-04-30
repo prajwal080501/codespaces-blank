@@ -4,7 +4,6 @@ const nextConfig = {
   
   // Add this section
   experimental: {
-    serverComponentsExternalPackages: ['@prisma/client', 'prisma'],
     serverActions: {
       allowedOrigins: [
         'localhost:3000',

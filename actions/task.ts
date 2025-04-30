@@ -53,7 +53,6 @@ export const deleteTask = async (taskId: string) => {
 
 export const updateTask = async (taskId: string, data: {
     title: string;
-    description: string;
     dueDate: Date;
     status: string;
     priority: string;
@@ -69,4 +68,25 @@ export const updateTask = async (taskId: string, data: {
     });
   
     return task;
+  }
+
+
+  export const importTasks = async (tasks: {
+    title: string;
+    status: string;
+    priority: string;
+    dueDate?: string;
+    userId: string;
+  }[]) => {
+    if(tasks.length === 0) {
+        throw new Error("No tasks to import");
+    }
+
+    await prisma.task.createMany({
+        data: tasks.map(task => ({
+            ...task,
+            dueDate: task.dueDate ? new Date(task.dueDate) : '',
+        })),
+    })
+    return tasks;
   }

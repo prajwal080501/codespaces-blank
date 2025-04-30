@@ -13,7 +13,7 @@ export default function Hero({ title, description }: { title: string, descriptio
                     <Button variant="default" className="bg-black duration-500 cursor-pointer text-white hover:bg-blue-600">
                         Get Started
                     </Button>
-                    <ArrowDown className="animate-bounce text-black font-bold mt-5" />
+                    <ArrowDown className="animate-bounce text-black dark:text-white font-bold mt-5" />
                 </div>
             </div>
             {/* <div className="absolute top-0 right-0 left-0 h-1/2 bg-gradient-to-t from-gray-100 to-red-400 z-0"></div> */}

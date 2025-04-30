@@ -20,6 +20,7 @@ import { TableFilter } from "./table-filter"
 import TaskForm from "@/forms/task-form"
 import { Input } from "./ui/input"
 import { TasksData } from "@/types"
+import UploadPopup from "./upload-popup"
 
 export default function TaskTable({ tasks, setFilter, refetchTasks}: {
     tasks: TasksData,
@@ -61,6 +62,7 @@ export default function TaskTable({ tasks, setFilter, refetchTasks}: {
                 >
                     Refresh
                 </Button>
+                <UploadPopup />
                 <TableFilter filterTitle="Tasks filter" tasks={tasks} setFilter={setFilter} />
             </div>
             <Table className="bg-white dark:bg-black/90 rounded">

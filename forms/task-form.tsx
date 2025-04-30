@@ -68,9 +68,16 @@ export default function TaskForm({ editMode = false, data, displayMode, classNam
     }) => {
       if (editMode && data) {
         // Remove id from data before sending to API
-        return updateTask(data.id, formData);
+        return updateTask(data.id, {
+          ...formData,
+          dueDate: new Date(formData.dueDate),
+        });
       } else {
-        return addTask(formData);
+        return addTask({
+          ...formData,
+          description: formData.title, // Use title as description or update as needed
+          dueDate: new Date(formData.dueDate), // Convert dueDate to Date object
+        });
       }
     },
     onSuccess: () => {
