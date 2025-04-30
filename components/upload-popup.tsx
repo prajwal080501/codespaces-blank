@@ -1,11 +1,11 @@
 "use client";
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "./ui/input";
 import React, { useEffect, useRef, useState } from "react";
@@ -44,17 +44,17 @@ export default function UploadPopup() {
         event.preventDefault();
         const formData = new FormData(formRef.current as HTMLFormElement);
         const file = formData.get('file') as File;
-        
+
         if (!file) {
             toast.error("Please select a file");
             return;
         }
-        
+
         if (!file.name.endsWith('.csv')) {
             toast.error("Please upload a CSV file");
             return;
         }
-        
+
         await readCsvFile(file);
     }
 
@@ -65,14 +65,14 @@ export default function UploadPopup() {
             if (csvData.length > 0 && userId) {
                 try {
                     setIsUploading(true);
-                    
+
                     // Type safety: ensure all required fields exist
                     const formattedData = csvData.map((data) => {
                         // Verify required fields
                         if (!data.title || !data.status || !data.priority) {
                             throw new Error("CSV missing required fields: title, status, and priority");
                         }
-                        
+
                         return {
                             title: data.title,
                             status: data.status,
@@ -80,10 +80,10 @@ export default function UploadPopup() {
                             // Convert date to ISO string format or undefined
                             dueDate: data.date ? new Date(data.date).toISOString() : undefined,
                             // Use the non-null assertion because we checked above
-                            userId: userId, 
+                            userId: userId,
                         };
                     });
-                    
+
                     const result = await importTasks(formattedData);
                     console.log("Import result:", result);
                     toast.success(`Imported ${formattedData.length} tasks successfully`);
@@ -98,7 +98,7 @@ export default function UploadPopup() {
                 }
             }
         };
-        
+
         // Only process if we have data
         if (csvData.length > 0) {
             processData();
@@ -121,21 +121,21 @@ export default function UploadPopup() {
                     </DialogDescription>
                 </DialogHeader>
                 <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
-                    <Input 
-                        type="file" 
-                        accept=".csv" 
+                    <Input
+                        type="file"
+                        accept=".csv"
                         name="file"
                         className="cursor-pointer"
                     />
-                    <Button 
-                        type="submit" 
+                    <Button
+                        type="submit"
                         disabled={isUploading}
                         className="w-full"
                     >
                         {isUploading ? "Uploading..." : "Upload"}
                     </Button>
                 </form>
-                
+
                 {csvData.length > 0 && (
                     <div className="mt-4">
                         <h3 className="font-medium mb-2">Preview ({csvData.length} rows):</h3>
