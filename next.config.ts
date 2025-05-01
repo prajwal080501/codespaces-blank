@@ -12,16 +12,6 @@ const nextConfig = {
         // Add any other domains you need to support
       ],
     },
-    webpack: (config: import('webpack').Configuration, { isServer }: { isServer: boolean }) => {
-      if (isServer) {
-        config.externals = config.externals || [];
-        if (Array.isArray(config.externals)) {
-          config.externals.push('@prisma/client');
-        }
-      }
-      return config;
-    },
-    output: 'standalone', 
   },
 };
 

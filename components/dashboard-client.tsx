@@ -9,9 +9,9 @@ import {
   TabsTrigger,
 } from "@/components/ui/tabs"
 
-import ListView from '@/app/dashboard/views/list-view';
-import DashboardView from '@/app/dashboard/views/dashboard-view';
-import KanbanView from '@/app/dashboard/views/kanban-view';
+import ListView from '@/app/(operations)/dashboard/views/list-view';
+import DashboardView from '@/app/(operations)/dashboard/views/dashboard-view';
+import KanbanView from '@/app/(operations)/dashboard/views/kanban-view';
 import { TasksData } from '@/types';
 // import CalendarView from '@/app/dashboard/views/calendar-view';
 import { views } from '@/data/data';

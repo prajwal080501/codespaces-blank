@@ -13,7 +13,7 @@ export default function HeaderWrapper({
     const pathname = usePathname(); // Get the current route
 
     // Define routes where the header should not be displayed
-    const hiddenPaths = ["/login", "/register", "/dashboard"];
+    const hiddenPaths = ["/login", "/register", "/dashboard", '/teams'];
 
     if (hiddenPaths.includes(pathname)) {
         return null; // Do not render the header

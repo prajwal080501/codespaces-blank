@@ -25,6 +25,7 @@ export default function Header({ brandName, userId }: { brandName: string; userI
         };
     }
 
+
     return (
         <nav className="p-4 fixed top-0 w-full flex items-center justify-between z-10">
             <Link href="/" className="font-extrabold p-1 text-xl md:text-2xl lg:text-3xl">

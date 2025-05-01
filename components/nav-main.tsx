@@ -10,6 +10,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
+import Link from "next/link"
 
 export function NavMain({
   items,
@@ -40,7 +41,7 @@ export function NavMain({
             {/* <CollapsibleTrigger asChild> */}
             <SidebarMenuButton className="flex items-center" tooltip={item.title}>
               {item.icon && <item.icon />}
-              <span className="text-left w-full">{item.title}</span>
+              <Link href={item.url} className="text-left w-full">{item.title}</Link>
               {/* <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" /> */}
             </SidebarMenuButton>
             {/* </CollapsibleTrigger> */}

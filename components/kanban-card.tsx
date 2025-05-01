@@ -1,14 +1,15 @@
+'use client'
 import { TaskObjectData } from "@/types";
 
 export default function KanbanCard({
     task
-}:{
+}: {
     task: TaskObjectData
-}){
-
+}) {
     return (
         <div className="dark:bg-zinc-900 hover:ring-1 hover:ring-blue-100 hover:bg-blue-100 duration-200 rounded ring-gray-100 p-2">
             {/* Top bar */}
+
             <div>
                 <div className="flex justify-between">
                     <div className={`text-sm font-bold text-gray-500 ${task.priority === "high" ? "text-red-500" : task.priority === "medium" ? "text-yellow-500" : "text-green-500"}`}>
@@ -19,7 +20,7 @@ export default function KanbanCard({
                     </div>
                 </div>
             </div>
-            {/* Main Content  */}
+            {/* Main Content */}
             <div>
                 <div className="font-medium text-lg">
                     {task.title}
@@ -31,5 +32,5 @@ export default function KanbanCard({
             {/* Bottom bar */}
             <div></div>
         </div>
-    )
+    );
 }
