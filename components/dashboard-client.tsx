@@ -8,17 +8,21 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs"
-import { Kanban, LayoutDashboard, List } from 'lucide-react';
+
 import ListView from '@/app/dashboard/views/list-view';
 import DashboardView from '@/app/dashboard/views/dashboard-view';
 import KanbanView from '@/app/dashboard/views/kanban-view';
 import { TasksData } from '@/types';
+// import CalendarView from '@/app/dashboard/views/calendar-view';
+import { views } from '@/data/data';
+import React from 'react';
+import { useIsMobile } from '@/hooks/use-mobile'
 
-export default function DashboardClient({ 
+export default function DashboardClient({
   userId,
-}: { 
+}: {
   userId: string;
-  user:{
+  user: {
     firstName: string;
     lastName: string;
   };
@@ -32,32 +36,49 @@ export default function DashboardClient({
     // Only run the query if we have a userId
     enabled: !!userId,
   });
-
+  const isMobile = useIsMobile()
   return (
     <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
       <Tabs defaultValue="list-view" className="w-full">
-        <TabsList className="grid w-fit grid-cols-3 gap-2 p-2 h-fit dark:bg-zinc-900">
-          <TabsTrigger value="list-view" className="cursor-pointer m-1">
-            <List className="w-4 h-4 mr-2" />
-            List View
-          </TabsTrigger>
-          <TabsTrigger value="dashboard">
+        <TabsList className="grid w-full lg:w-[70%] grid-cols-4 gap-2 p-2 h-fit dark:bg-zinc-900">
+          {
+            views.map((view) => {
+              const icon = view.icon
+              return (
+                <TabsTrigger key={view.id} value={view.value} className="cursor-pointer m-1">
+                  {React.createElement(icon, { className: "w-4 h-4 mr-2" })}
+                  {!isMobile && view.title}
+                </TabsTrigger>
+              )
+            })
+          }
+          {/* <TabsTrigger value="dashboard">
             <LayoutDashboard /> Dashboard
           </TabsTrigger>
           <TabsTrigger value="kanban-view" className="cursor-pointer p-2">
             <Kanban className="w-4 h-4 mr-2" />
             Kanban View
           </TabsTrigger>
+          <TabsTrigger value='calendar-view'>
+          <Calendar className='w-4 h-4' />
+            Calendar View
+          </TabsTrigger> */}
         </TabsList>
-        
+
         <TabsContent value="list-view" className="cursor-pointer bg-white dark:bg-black/80 rounded-lg">
-          <ListView tasks={tasks || []} userId={userId}  />
+          <ListView tasks={tasks || []} userId={userId} />
         </TabsContent>
-        <TabsContent value="dashboard">
+        <TabsContent value="dashboard-view">
           <DashboardView data={tasks && tasks || []} />
         </TabsContent>
         <TabsContent value="kanban-view" className="cursor-pointer">
-          <KanbanView data={tasks && tasks || []}/>
+          <KanbanView data={tasks && tasks || []} />
+        </TabsContent>
+        <TabsContent value='calendar-view' className="cursor-pointer">
+          {/* <CalendarView /> */}
+          <div className='text-center h-90 w-full p-2 flex justify-center items-center'>
+            Coming Soon
+          </div>
         </TabsContent>
       </Tabs>
     </div>

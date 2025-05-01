@@ -1,12 +1,9 @@
 import {
-    AudioWaveform,
     BookOpen,
     Bot,
-    Command,
-    Frame,
-    GalleryVerticalEnd,
+    Calendar,
+    List,
     ListTodo,
-    Map,
     PieChart,
     Settings2,
     SquareTerminal,
@@ -107,4 +104,32 @@ export const SidebarMenu =  [
       title: '✅ Conquer Your Day with Ease',
       subtitle: 'Stay organized, prioritize effortlessly, and achieve more with our intuitive task manager built for busy lives.',
     }
+  ]
+
+  export const views = [
+    {
+      id:1,
+      title: 'List View',
+      value: 'list-view',
+      icon: List,
+    },
+    {
+      id:2,
+      title: 'Kanban View',
+      value: 'kanban-view',
+      icon: SquareTerminal,
+    },
+    {
+      id:3,
+      title: 'Calendar View',
+      value: 'calendar-view',
+      icon: Calendar,
+    },
+    {
+      id:4,
+      title: 'Dashboard View',
+      value: 'dashboard-view',
+      icon: PieChart,
+    },
+
   ]
