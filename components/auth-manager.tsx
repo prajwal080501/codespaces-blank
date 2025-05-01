@@ -9,8 +9,11 @@ import {
 } from "@clerk/nextjs";
 import { Button } from "./ui/button";
 import Link from "next/link";
+import { useIsMobile } from "@/hooks/use-mobile";
+import { LayoutDashboard } from "lucide-react";
 
 export default function AuthManager({ userId }: { userId: string | null }) {
+    const isMobile = useIsMobile();
     return (
         <>
             <SignedOut>
@@ -33,7 +36,9 @@ export default function AuthManager({ userId }: { userId: string | null }) {
                             variant={"outline"}
                             className="text-lg font-medium cursor-pointer"
                         >
-                            Dashboard
+                            {
+                                isMobile ? <LayoutDashboard /> : "Dashboard"
+                            }
                         </Button>
                     </Link>
                 )}

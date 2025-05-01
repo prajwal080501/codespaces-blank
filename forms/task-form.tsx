@@ -18,12 +18,14 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
+
 import { Label } from "@/components/ui/label";
 import { useAuth } from "@clerk/nextjs";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { toast } from "sonner"
 import { Pencil, Plus } from "lucide-react";
 import { TaskObjectData } from "@/types";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 export default function TaskForm({ editMode = false, data, displayMode, className }: {
   editMode?: boolean,
@@ -34,7 +36,7 @@ export default function TaskForm({ editMode = false, data, displayMode, classNam
   const formRef = useRef<HTMLFormElement>(null);
   const { userId } = useAuth();
   const [open, setOpen] = useState(false);
-
+  const isMobile = useIsMobile();
   // State for task data
   const [task, setTask] = useState({
     title: editMode && data ? data.title : "",
@@ -130,7 +132,7 @@ export default function TaskForm({ editMode = false, data, displayMode, classNam
             displayMode === "icon" ?
               <Plus className="w-8 rounded-full duration-200 text-blue-700 font-medium hover:bg-blue-500 p-1 hover:rounded-full hover:text-white h-8 cursor-pointer" /> :
               <p className={`bg-blue-500 text-white px-2 py-1 rounded ${className}`}>
-                {buttonText}
+                {isMobile ? <Plus /> : buttonText}
               </p>
           }
         </DialogTrigger>

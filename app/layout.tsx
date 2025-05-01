@@ -21,7 +21,7 @@ export default async function RootLayout({
         <ClerkProvider>
             <html lang="en">
                 <body className="antialiased relative overflow-y-auto">
-                    <HeaderWrapper brandName="Task Manager" userId={userId} />
+                    <HeaderWrapper brandName="DoTheTodo" userId={userId} />
                     <main>{children}</main>
                     <Toaster />
                 </body>
