@@ -4,7 +4,6 @@ import { prisma } from "@/lib/prisma";
 
 export const addTask = async (input: {
     title: string;
-    description: string;
     dueDate: Date;
     status: string;
     priority: string;

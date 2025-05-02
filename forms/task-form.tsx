@@ -77,7 +77,6 @@ export default function TaskForm({ editMode = false, data, displayMode, classNam
       } else {
         return addTask({
           ...formData,
-          description: formData.title, // Use title as description or update as needed
           dueDate: new Date(formData.dueDate), // Convert dueDate to Date object
         });
       }
