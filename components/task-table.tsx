@@ -18,7 +18,6 @@ import { Button } from "./ui/button"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { TableFilter } from "./table-filter"
 import TaskForm from "@/forms/task-form"
-import { Input } from "./ui/input"
 import { TasksData } from "@/types"
 import UploadPopup from "./upload-popup"
 
@@ -53,7 +52,6 @@ export default function TaskTable({ tasks, setFilter, refetchTasks}: {
     return (
         <div>
             <div className="w-full self-end flex dark:bg-black items-end p-2 justify-end gap-3">
-                <Input type="text" name='search' placeholder="Search" className="w-42 dark:bg-black bg-white ring-0 focus:ring-1 focus:ring-blue-500" />
                 <TaskForm />
                 <Button 
                     onClick={refetchTasks} 
