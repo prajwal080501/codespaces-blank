@@ -3,10 +3,9 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { Toaster } from "@/components/ui/sonner"
 import { Separator } from "@/components/ui/separator"
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
-import { AppSidebar } from "@/components/app-sidebar"
+// import { AppSidebar } from "@/components/app-sidebar"
 // import DashboardClient from "@/components/dashboard-client"
 // import DashboardMessage from "@/components/dashboard-message"
-import Link from "next/link"
 import HeaderPath from '@/components/header-path'
 import TaskForm from '@/forms/task-form'
 import UploadPopup from '@/components/upload-popup'
