@@ -20,10 +20,9 @@ import { TableFilter } from "./table-filter"
 import TaskForm from "@/forms/task-form"
 import { TasksData } from "@/types"
 
-export default function TaskTable({ tasks, setFilter, refetchTasks }: {
+export default function TaskTable({ tasks, setFilter }: {
     tasks: TasksData,
     setFilter: (filter: Record<string, string>) => void,
-    refetchTasks: () => void,
 
 }) {
     const router = useRouter();
