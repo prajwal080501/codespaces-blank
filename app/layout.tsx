@@ -19,6 +19,7 @@ export default async function RootLayout({
 }) {
     const { userId } = await auth(); // Server-side logic
     const user = await currentUser();
+    console.log(user, 'user clerk obj')
     console.log("User ID:", userId);
     if (userId && user) {
         const userObj: UserType = {

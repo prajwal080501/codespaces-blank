@@ -1,7 +1,9 @@
 import Hero from "@/components/hero";
+import { auth } from "@clerk/nextjs/server";
 
-export default function Home() {
-
+export default async function Home() {
+  const {orgId, orgRole} = await auth();
+  console.log(orgId, orgRole, 'role org')
   return (
     <>
       <div className="@container w-full h-full">

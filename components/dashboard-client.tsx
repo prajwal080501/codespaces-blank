@@ -17,6 +17,11 @@ import { TasksData } from '@/types';
 import { views } from '@/data/data';
 import React from 'react';
 import { useIsMobile } from '@/hooks/use-mobile'
+import CalendarView from '@/app/(operations)/dashboard/views/calendar-view';
+import TaskForm from '@/forms/task-form';
+import { RotateCcw } from 'lucide-react';
+import UploadPopup from './upload-popup';
+import { Button } from './ui/button';
 
 export default function DashboardClient({
   userId,
@@ -64,7 +69,6 @@ export default function DashboardClient({
             Calendar View
           </TabsTrigger> */}
         </TabsList>
-
         <TabsContent value="list-view" className="cursor-pointer bg-white dark:bg-black/80 rounded-lg">
           <ListView tasks={tasks || []} userId={userId} />
         </TabsContent>
@@ -77,7 +81,7 @@ export default function DashboardClient({
         <TabsContent value='calendar-view' className="cursor-pointer">
           {/* <CalendarView /> */}
           <div className='text-center h-90 w-full p-2 flex justify-center items-center'>
-            Coming Soon
+            <CalendarView />
           </div>
         </TabsContent>
       </Tabs>

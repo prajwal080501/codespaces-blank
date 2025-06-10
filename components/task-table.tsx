@@ -13,7 +13,7 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import { priorityClassMap, taskStatusClassMap, taskStatusMap } from "@/lib/utils"
-import { Trash } from "lucide-react"
+import { RotateCcw, Trash } from "lucide-react"
 import { Button } from "./ui/button"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { TableFilter } from "./table-filter"
@@ -52,15 +52,6 @@ export default function TaskTable({ tasks, setFilter, refetchTasks}: {
     return (
         <div>
             <div className="w-full self-end flex dark:bg-black items-end p-2 justify-end gap-3">
-                <TaskForm />
-                <Button 
-                    onClick={refetchTasks} 
-                    variant="outline" 
-                    className="px-2 py-1"
-                >
-                    Refresh
-                </Button>
-                <UploadPopup />
                 <TableFilter filterTitle="Tasks filter" tasks={tasks} setFilter={setFilter} />
             </div>
             <Table className="bg-white dark:bg-black/90 rounded">
@@ -111,7 +102,7 @@ export default function TaskTable({ tasks, setFilter, refetchTasks}: {
                         ))
                     ) : (
                         <TableRow>
-                            <TableCell colSpan={4} className="text-center py-8">No tasks found</TableCell>
+                            <TableCell colSpan={5} className="text-center py-8">No tasks found</TableCell>
                         </TableRow>
                     )}
                 </TableBody>

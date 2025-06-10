@@ -60,24 +60,24 @@ export const updateTask = async (taskId: string, data: {
     // Create a new object without the id property
     data.dueDate = new Date(data.dueDate); // Ensure dueDate is a Date object
     const task = await prisma.task.update({
-      where: {
-        id: taskId,
-      },
-      data: data, // Use the data object directly
+        where: {
+            id: taskId,
+        },
+        data: data, // Use the data object directly
     });
-  
+
     return task;
-  }
+}
 
 
-  export const importTasks = async (tasks: {
+export const importTasks = async (tasks: {
     title: string;
     status: string;
     priority: string;
     dueDate?: string;
     userId: string;
-  }[]) => {
-    if(tasks.length === 0) {
+}[]) => {
+    if (tasks.length === 0) {
         throw new Error("No tasks to import");
     }
 
@@ -88,4 +88,18 @@ export const updateTask = async (taskId: string, data: {
         })),
     })
     return tasks;
-  }
+}
+
+
+export const tasksDueSoon = async () => {
+    const tasks = await prisma.task.findMany({
+        where: {
+            dueDate: {
+                gte: new Date(),
+                lte: new Date(new Date().setDate(new Date().getDate() + 7)),
+            }
+        }
+    })
+
+    return tasks;
+}

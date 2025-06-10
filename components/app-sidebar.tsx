@@ -21,7 +21,7 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar"
 import { SidebarMenu } from "@/data/data"
-import { SignedIn, UserButton } from "@clerk/nextjs"
+import { OrganizationSwitcher, SignedIn, UserButton } from "@clerk/nextjs"
 
 // This is sample data.
 const data = {
@@ -70,7 +70,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
-        <TeamSwitcher teams={data.teams} />
+        <OrganizationSwitcher appearance={
+          {
+            variables: {
+              colorText: 'white'
+            }
+          }
+        }/>
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={SidebarMenu} />

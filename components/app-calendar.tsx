@@ -8,7 +8,7 @@ export default function AppCalendar() {
                 <h1 className="text-2xl font-bold">Calendar</h1>
                 <div className="grid grid-cols-7 gap-4">
                     {Array.from({ length: daysInMonth }, (_, i) => (
-                        <div key={i} className="p-1 w-16 text-center border rounded-lg bg-white dark:bg-zinc-800">
+                        <div key={i} className=" w-16 text-center border rounded-full bg-white dark:bg-zinc-800">
                             {i + 1}
                         </div>
                     ))}

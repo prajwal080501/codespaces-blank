@@ -125,13 +125,13 @@ export default function TaskForm({ editMode = false, data, displayMode, classNam
   return (
     <>
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogTrigger className="mb-1">
+        <DialogTrigger className="mb-1 flex items-center">
           {editMode ?
             <Pencil className="w-4 text-blue-700 font-medium h-4 cursor-pointer" /> :
             displayMode === "icon" ?
               <Plus className="w-8 rounded-full duration-200 text-blue-700 font-medium hover:bg-blue-500 p-1 hover:rounded-full hover:text-white h-8 cursor-pointer" /> :
-              <p className={`bg-blue-500 text-white px-2 py-1 rounded ${className}`}>
-                {isMobile ? <Plus /> : buttonText}
+              <p className={`bg-blue-500 cursor-pointer mt-1 text-white px-2 py-1 rounded ${className}`}>
+                {isMobile ? <Plus /> : <Plus />}
               </p>
           }
         </DialogTrigger>
