@@ -108,7 +108,7 @@ export default function UploadPopup() {
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button variant="outline">Import Tasks</Button>
+                <Button variant="outline">Import</Button>
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>

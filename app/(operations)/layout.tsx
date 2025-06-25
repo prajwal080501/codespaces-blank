@@ -3,6 +3,9 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { Toaster } from "@/components/ui/sonner"
 import { Separator } from "@/components/ui/separator"
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar"
+import {
+  UserButton,
+} from "@clerk/nextjs";
 // import { AppSidebar } from "@/components/app-sidebar"
 // import DashboardClient from "@/components/dashboard-client"
 // import DashboardMessage from "@/components/dashboard-message"
@@ -24,7 +27,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               <div className="w-full flex justify-between items-center gap-2 px-4">
                 <div className="flex items-center gap-2">
                   {/* <SidebarTrigger className="-ml-1" /> */}
-                  <Link href={'/'} className='text-2xl font-extrabold ml-4 text-white'>DoTheTodo</Link>
+                  <Link href={'/'} className='text-lg lg:text-2xl font-extrabold ml-4 text-white'>DoTheTodo</Link>
                   <Separator
                     orientation="vertical"
                     className="mr-2 data-[orientation=vertical]:h-4"
@@ -45,6 +48,18 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               <RotateCcw className="w-4 h-4" />
             </Button> */}
                   <UploadPopup />
+                  <UserButton
+                    appearance={{
+                      elements: {
+                        userButtonBox: "flex items-center justify-center",
+                        userButtonAvatarBox: "rounded-full",
+                        userButtonAvatar: "rounded-full",
+                        userButtonName: "text-sm font-medium",
+                        userButtonProfile: "hidden",
+                        userButtonDropdown: "hidden",
+                      },
+                    }}
+                  />
                 </div>
               </div>
             </header>
