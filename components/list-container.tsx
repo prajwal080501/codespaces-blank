@@ -49,7 +49,7 @@ export default function ListContainer({ userId }: { userId: string }) {
 
     return (
         <div className="flex dark:bg-black/80 flex-col gap-4 h-1/2 overflow-y-auto">
-            <TaskTable tasks={filteredTasks} setFilter={setFilter} refetchTasks={refetchTasks}/>
+            <TaskTable tasks={filteredTasks} setFilter={setFilter}/>
         </div>
     )
 }
