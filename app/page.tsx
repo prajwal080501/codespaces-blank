@@ -6,7 +6,7 @@ export default async function Home() {
   console.log(orgId, orgRole, 'role org')
   return (
     <>
-      <div className="@container w-full h-full">
+      <div className="@container w-full h-full mb-5">
           <Hero title="Your Premium Task Manager" description="Manage and streamline tasks at your fingertips"/>
       </div>
     </>

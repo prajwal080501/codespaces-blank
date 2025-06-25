@@ -18,10 +18,11 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         <SidebarProvider>
           {/* <AppSidebar /> */}
           <SidebarInset>
-            <header className="w-full flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
+            <header className="w-full backdrop-blur-xl fixed z-20 top-0 flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
               <div className="w-full flex justify-between items-center gap-2 px-4">
                 <div className="flex items-center gap-2">
                   {/* <SidebarTrigger className="-ml-1" /> */}
+                  <p className='text-2xl font-extrabold ml-4 text-white'>DoTheTodo</p>
                   <Separator
                     orientation="vertical"
                     className="mr-2 data-[orientation=vertical]:h-4"

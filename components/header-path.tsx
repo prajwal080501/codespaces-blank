@@ -20,7 +20,7 @@ export default function HeaderPath() {
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
                 <BreadcrumbPage className="text-sm font-medium text-muted-foreground">
-                    {currentPath}
+                    {currentPath.charAt(0).toUpperCase() + currentPath.slice(1)}
                 </BreadcrumbPage>
             </BreadcrumbList>
         </Breadcrumb>

@@ -11,7 +11,7 @@ export default async function Page() {
   }
   return (
     <>
-      <div className="relative flex w-full items-center justify-between p-2 font-bold text-black">
+      <div className="relative flex w-full mt-14 items-center justify-between p-2 font-bold text-black">
         <DashboardMessage userName={userObject.firstName + ' ' + userObject.lastName} />
       </div>
       <DashboardClient userId={userId || ''} user={userObject} />
