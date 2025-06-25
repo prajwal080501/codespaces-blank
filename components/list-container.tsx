@@ -2,15 +2,11 @@
 'use client'
 import { getAllTasksByUserId } from "@/actions/task";
 import TaskTable from "./task-table";
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 
 export default function ListContainer({ userId }: { userId: string }) {
     const [filter, setFilter] = useState({})
-    const queryClient = useQueryClient();
-    const refetchTasks = useCallback(() => {
-        queryClient.invalidateQueries({ queryKey: ['tasks'] });
-    }, [queryClient]);
 
     const { data: tasks, isLoading } = useQuery({
         queryKey: ['tasks'],
