@@ -6,9 +6,11 @@ import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar"
 // import { AppSidebar } from "@/components/app-sidebar"
 // import DashboardClient from "@/components/dashboard-client"
 // import DashboardMessage from "@/components/dashboard-message"
-import HeaderPath from '@/components/header-path'
+// import HeaderPath from '@/components/header-path'
 import TaskForm from '@/forms/task-form'
 import UploadPopup from '@/components/upload-popup'
+import { Bell } from 'lucide-react'
+import Link from 'next/link'
 const queryClient = new QueryClient()
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
@@ -22,15 +24,18 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               <div className="w-full flex justify-between items-center gap-2 px-4">
                 <div className="flex items-center gap-2">
                   {/* <SidebarTrigger className="-ml-1" /> */}
-                  <p className='text-2xl font-extrabold ml-4 text-white'>DoTheTodo</p>
+                  <Link href={'/'} className='text-2xl font-extrabold ml-4 text-white'>DoTheTodo</Link>
                   <Separator
                     orientation="vertical"
                     className="mr-2 data-[orientation=vertical]:h-4"
                   />
                   {/* Breadcrumb component */}
-                  <HeaderPath />
+                  {/* <HeaderPath /> */}
                 </div>
                 <div className="flex gap-2 justify-start  items-center">
+                  <div className='bg-gray-400/40 p-2 rounded'>
+                    <Bell className='h-5 w-5' />
+                  </div>
                   <TaskForm />
                   {/* <Button
               onClick={refetchTasks}
